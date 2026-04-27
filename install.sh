@@ -19,16 +19,34 @@ for f in background.png theme.txt fonts/Ubuntu-Regular-16.pf2 icons/ubuntu.png i
     fi
 done
 
-echo "[1/4] Installing theme to $THEME_DEST ..."
+echo "[1/5] Checking os-prober for Windows detection ..."
+
+if ! dpkg -s os-prober &>/dev/null 2>&1; then
+    echo "  os-prober not found — installing..."
+    apt-get install -y os-prober
+    echo "  os-prober installed."
+else
+    echo "  os-prober already installed."
+fi
+
+if grep -q '^GRUB_DISABLE_OS_PROBER=' "$GRUB_DEFAULT"; then
+    sed -i 's|^GRUB_DISABLE_OS_PROBER=.*|GRUB_DISABLE_OS_PROBER=false|' "$GRUB_DEFAULT"
+    echo "  GRUB_DISABLE_OS_PROBER set to false."
+else
+    echo 'GRUB_DISABLE_OS_PROBER=false' >> "$GRUB_DEFAULT"
+    echo "  GRUB_DISABLE_OS_PROBER=false appended."
+fi
+
+echo "[2/5] Installing theme to $THEME_DEST ..."
 rm -rf "$THEME_DEST"
 mkdir -p "$THEME_DEST"
 cp -r "$SCRIPT_DIR"/. "$THEME_DEST/"
 echo "  Copied."
 
-echo "[2/4] Backing up $GRUB_DEFAULT ..."
+echo "[3/5] Backing up $GRUB_DEFAULT ..."
 cp "$GRUB_DEFAULT" "${GRUB_DEFAULT}.bak.$(date +%Y%m%d_%H%M%S)"
 
-echo "[3/4] Updating $GRUB_DEFAULT ..."
+echo "[4/5] Updating $GRUB_DEFAULT ..."
 # Remove any existing GRUB_THEME line
 sed -i '/^GRUB_THEME=/d' "$GRUB_DEFAULT"
 # Set resolution if not already set
@@ -39,7 +57,7 @@ fi
 echo "GRUB_THEME=$THEME_DEST/theme.txt" >> "$GRUB_DEFAULT"
 echo "  GRUB_THEME set to $THEME_DEST/theme.txt"
 
-echo "[4/4] Running update-grub ..."
+echo "[5/5] Running update-grub ..."
 update-grub
 
 echo ""
