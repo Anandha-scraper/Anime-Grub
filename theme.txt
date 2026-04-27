@@ -1,0 +1,86 @@
+# ZYNC OS SELECT — Cyberpunk Neon Noir GRUB Theme
+# Resolution: 1920x1080
+
+title-text: ""
+desktop-image: "background.png"
+desktop-color: "#050008"
+desktop-image-scale-method: "stretch"
+
+# ---- Fonts ----
+terminal-font: "Ubuntu Regular 16"
+
+# ---- Title: ZYNC_OS_SELECT ----
++ label {
+    top   = 7%
+    left  = 5%
+    width = 600
+    align = "left"
+    id    = "__title__"
+    text  = "ZYNC_OS_SELECT"
+    font  = "Ubuntu Regular 20"
+    color = "#ffe600"
+}
+
+# ---- Subtitle ----
++ label {
+    top   = 13%
+    left  = 5%
+    width = 440
+    align = "left"
+    text  = "[ PLAYER ONE // AWAITING INPUT ]"
+    font  = "Ubuntu Regular 13"
+    color = "#ff0090"
+}
+
+# ---- Boot Menu ----
++ boot_menu {
+    left   = 5%
+    top    = 22%
+    width  = 380
+    height = 360
+
+    item_font           = "Ubuntu Regular 24"
+    item_color          = "#663377"
+    selected_item_color = "#ffe600"
+
+    selected_item_pixmap_style = "select_c.png"
+
+    item_height      = 60
+    item_padding     = 14
+    item_spacing     = 8
+
+    icon_width      = 36
+    icon_height     = 36
+    item_icon_space = 16
+
+    scrollbar = false
+}
+
+# ---- Timeout Progress Bar ----
++ progress_bar {
+    id    = "__timeout__"
+    left  = 50%-300
+    top   = 87%
+    width = 600
+    height = 12
+
+    show_text  = true
+    text       = "JACKING_IN... %d seconds"
+    font       = "Ubuntu Regular 13"
+    text_color = "#ff0090"
+
+    fg_color     = "#ff0090"
+    bg_color     = "#0d0018"
+    border_color = "#ffe600"
+}
+
+# ---- Navigation Hint ----
++ label {
+    top   = 92%
+    left  = 50%-310
+    width = 620
+    align = "center"
+    text  = "NAVIGATE:[↑↓]  EXECUTE:[ENTER]  OVERRIDE:[e]  CONSOLE:[c]"
+    font  = "Ubuntu Regular 13"
+    color = "#332233"
+}
