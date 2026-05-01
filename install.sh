@@ -49,9 +49,29 @@ cp "$GRUB_DEFAULT" "${GRUB_DEFAULT}.bak.$(date +%Y%m%d_%H%M%S)"
 echo "[4/5] Updating $GRUB_DEFAULT ..."
 # Remove any existing GRUB_THEME line
 sed -i '/^GRUB_THEME=/d' "$GRUB_DEFAULT"
+# Enable quiet splash to suppress boot text after OS selection
+if grep -q '^GRUB_CMDLINE_LINUX_DEFAULT=' "$GRUB_DEFAULT"; then
+    if ! grep -q 'quiet' "$GRUB_DEFAULT"; then
+        sed -i 's|^GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"|GRUB_CMDLINE_LINUX_DEFAULT="quiet splash \1"|' "$GRUB_DEFAULT"
+        echo "  Added quiet splash to GRUB_CMDLINE_LINUX_DEFAULT."
+    else
+        echo "  quiet splash already set."
+    fi
+else
+    echo 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"' >> "$GRUB_DEFAULT"
+    echo "  GRUB_CMDLINE_LINUX_DEFAULT=quiet splash appended."
+fi
 # Set resolution if not already set
 if ! grep -q "^GRUB_GFXMODE=" "$GRUB_DEFAULT"; then
     echo 'GRUB_GFXMODE=1920x1080,auto' >> "$GRUB_DEFAULT"
+fi
+# Disable auto-boot timeout (wait for user input)
+if grep -q '^GRUB_TIMEOUT=' "$GRUB_DEFAULT"; then
+    sed -i 's|^GRUB_TIMEOUT=.*|GRUB_TIMEOUT=-1|' "$GRUB_DEFAULT"
+    echo "  GRUB_TIMEOUT set to -1 (wait indefinitely)."
+else
+    echo 'GRUB_TIMEOUT=-1' >> "$GRUB_DEFAULT"
+    echo "  GRUB_TIMEOUT=-1 appended."
 fi
 # Add new theme line
 echo "GRUB_THEME=$THEME_DEST/theme.txt" >> "$GRUB_DEFAULT"

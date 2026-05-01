@@ -57,15 +57,15 @@ echo "  -> background.png"
 # ============================================================
 
 echo "[4/6] Selection highlight (card style with yellow glow)..."
-# Dark semi-transparent card fill with rounded corners
-convert -size 380x60 xc:none \
+# Dark semi-transparent card fill with rounded corners (380x72 matches item_height)
+convert -size 380x72 xc:none \
     -fill "rgba(5,0,8,0.82)" \
-    -draw "roundrectangle 3,3 376,56 10,10" \
+    -draw "roundrectangle 3,3 376,68 10,10" \
     "$WORK/card_fill.png"
 # Yellow border on top of fill
 convert "$WORK/card_fill.png" \
     -stroke "#ffe600" -strokewidth 2 -fill none \
-    -draw "roundrectangle 3,3 376,56 10,10" \
+    -draw "roundrectangle 3,3 376,68 10,10" \
     "$WORK/card_sharp.png"
 # Blur the sharp card to make an outer glow layer
 convert "$WORK/card_sharp.png" -blur 0x8 "$WORK/card_glow.png"

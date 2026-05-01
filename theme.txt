@@ -6,6 +6,11 @@ desktop-image: "background.png"
 desktop-color: "#050008"
 desktop-image-scale-method: "stretch"
 
+terminal-left: "62%"
+terminal-top: "76%"
+terminal-width: "33%"
+terminal-height: "16%"
+
 # ---- Fonts ----
 terminal-font: "Ubuntu Regular 16"
 
@@ -37,15 +42,15 @@ terminal-font: "Ubuntu Regular 16"
     left   = 5%
     top    = 22%
     width  = 380
-    height = 360
+    height = 430
 
-    item_font           = "Ubuntu Regular 24"
+    item_font           = "Ubuntu Regular 32"
     item_color          = "#663377"
     selected_item_color = "#ffe600"
 
     selected_item_pixmap_style = "select_c.png"
 
-    item_height      = 60
+    item_height      = 72
     item_padding     = 14
     item_spacing     = 8
 
@@ -54,24 +59,6 @@ terminal-font: "Ubuntu Regular 16"
     item_icon_space = 16
 
     scrollbar = false
-}
-
-# ---- Timeout Progress Bar ----
-+ progress_bar {
-    id    = "__timeout__"
-    left  = 50%-300
-    top   = 87%
-    width = 600
-    height = 12
-
-    show_text  = true
-    text       = "JACKING_IN... %d seconds"
-    font       = "Ubuntu Regular 13"
-    text_color = "#ff0090"
-
-    fg_color     = "#ff0090"
-    bg_color     = "#0d0018"
-    border_color = "#ffe600"
 }
 
 # ---- Navigation Hint ----

@@ -35,17 +35,20 @@ fi
 
 echo "Using font: $FONT_PATH"
 
-echo "[1/4] Compiling size 13 (hint text)..."
+echo "[1/5] Compiling size 13 (hint text)..."
 grub-mkfont -o fonts/Ubuntu-Regular-13.pf2 -s 13 "$FONT_PATH"
 
-echo "[2/4] Compiling size 16 (terminal fallback)..."
+echo "[2/5] Compiling size 16 (terminal fallback)..."
 grub-mkfont -o fonts/Ubuntu-Regular-16.pf2 -s 16 "$FONT_PATH"
 
-echo "[3/4] Compiling size 20 (title)..."
+echo "[3/5] Compiling size 20 (title)..."
 grub-mkfont -o fonts/Ubuntu-Regular-20.pf2 -s 20 "$FONT_PATH"
 
-echo "[4/4] Compiling size 24 (menu items)..."
+echo "[4/5] Compiling size 24 (legacy)..."
 grub-mkfont -o fonts/Ubuntu-Regular-24.pf2 -s 24 "$FONT_PATH"
+
+echo "[5/5] Compiling size 32 (menu items)..."
+grub-mkfont -o fonts/Ubuntu-Regular-32.pf2 -s 32 "$FONT_PATH"
 
 echo "Done! Fonts:"
 ls -lh fonts/
