@@ -77,6 +77,27 @@ fi
 echo "GRUB_THEME=$THEME_DEST/theme.txt" >> "$GRUB_DEFAULT"
 echo "  GRUB_THEME set to $THEME_DEST/theme.txt"
 
+# Hide recovery mode entries
+if ! grep -q "^GRUB_DISABLE_RECOVERY=" "$GRUB_DEFAULT"; then
+    echo 'GRUB_DISABLE_RECOVERY=true' >> "$GRUB_DEFAULT"
+else
+    sed -i 's|^GRUB_DISABLE_RECOVERY=.*|GRUB_DISABLE_RECOVERY=true|' "$GRUB_DEFAULT"
+fi
+
+# Hide Advanced options submenu
+if ! grep -q "^GRUB_DISABLE_SUBMENU=" "$GRUB_DEFAULT"; then
+    echo 'GRUB_DISABLE_SUBMENU=y' >> "$GRUB_DEFAULT"
+else
+    sed -i 's|^GRUB_DISABLE_SUBMENU=.*|GRUB_DISABLE_SUBMENU=y|' "$GRUB_DEFAULT"
+fi
+
+# Hide memtest entries
+if ! grep -q "^GRUB_DISABLE_MEMTEST=" "$GRUB_DEFAULT"; then
+    echo 'GRUB_DISABLE_MEMTEST=true' >> "$GRUB_DEFAULT"
+else
+    sed -i 's|^GRUB_DISABLE_MEMTEST=.*|GRUB_DISABLE_MEMTEST=true|' "$GRUB_DEFAULT"
+fi
+
 echo "[5/5] Running update-grub ..."
 update-grub
 
